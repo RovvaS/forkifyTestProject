@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const baseURL = "https://api.edamam.com/search?q=";
-const appId = "&app_id=c0c8f017";
+const appId = "&app_id=c0c8f017&to=30";
 const appKey = "&app_key=b6ad6c67d4afedd289363a910f948814";
 
 export default class Search {
