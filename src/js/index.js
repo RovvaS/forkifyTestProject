@@ -28,7 +28,7 @@ const controlSearch = async () => {
 
         //Search for recipies
         await state.search.getResults();
-
+        
         //render results on UI
         //state.search.result.forEach(e => console.log(e.recipe.label));
         clearLoader();
