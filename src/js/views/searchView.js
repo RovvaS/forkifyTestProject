@@ -8,6 +8,7 @@ export const clearInput = () => {
 
 export const clearResults = () => {
     elements.searchResList.innerHTML = '';
+    elements.searchResPages.innerHTML='';
 }
 
 //Function to shorten the title of a recipe to fit on one row but with whole words only
@@ -47,11 +48,12 @@ const renderRecipe = recipe => {
 
 //type: 'prev' or 'next'
 const createButton = (page, type) => `
-<button class="btn-inline results__btn--${type}" datagoto=${type === 'prev' ? page - 1 : page + 1}>
+<button class="btn-inline results__btn--${type}" data-goto=${type === 'prev' ? page - 1 : page + 1}>
+<span>Page ${type === 'prev' ? page - 1 : page + 1}</span>
     <svg class="search__icon">
         <use href="img/icons.svg#icon-triangle-${type === 'prev' ? 'left' : 'right'}"></use>
     </svg>
-    <span>Page ${type === 'prev' ? page - 1 : page + 1}</span>
+   
 </button>`;
 
 
@@ -69,9 +71,7 @@ const renderButtons = (page, numResults, resPerPage) => {
         //Only to previous page
         button = createButton(page, 'prev');
     }
-
     elements.searchResPages.insertAdjacentHTML('afterbegin', button);
-
 }
 
 export const renderResults = (recipies, page = 1, resPerPage = 10) => {
