@@ -1,5 +1,5 @@
 import { elements } from './base';
-
+//Да видим дали pull-ът работи
 export const getInput = () => elements.searchInput.value;
 
 export const clearInput = () => {
