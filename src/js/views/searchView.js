@@ -8,7 +8,7 @@ export const clearInput = () => {
 
 export const clearResults = () => {
     elements.searchResList.innerHTML = '';
-    elements.searchResPages.innerHTML='';
+    elements.searchResPages.innerHTML = '';
 }
 
 //Function to shorten the title of a recipe to fit on one row but with whole words only
@@ -53,7 +53,6 @@ const createButton = (page, type) => `
     <svg class="search__icon">
         <use href="img/icons.svg#icon-triangle-${type === 'prev' ? 'left' : 'right'}"></use>
     </svg>
-   
 </button>`;
 
 
