@@ -28,9 +28,10 @@ const limitRecipeTitle = (title, limit = 17) => {
 }
 
 const renderRecipe = recipe => {
+    const hash = recipe.recipe.uri.split('#');
     const markup = `
        <li>
-       <a class="results__link" href="#23456">
+       <a class="results__link" href=#${hash[1]}>
            <figure class="results__fig">
                <img src="${recipe.recipe.image}" alt="${recipe.recipe.label}">
            </figure>
