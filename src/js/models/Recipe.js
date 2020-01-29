@@ -15,18 +15,12 @@ export default class Recipe {
             this.img = res.data[0].image;
             this.ingredients = res.data[0].ingredients;
             this.url - res.data[0].url;
-            this.timeToPrepare = res.data[0].totalTime;
-            this.servingsA = Math.floor(res.data[0].totalWeight / 300);
+            this.time = res.data[0].totalTime || 15;
+            this.servings = Math.floor(res.data[0].totalWeight / 300) || 1;
             //console.log(res);            
         } catch (error) {
             console.log(error);
             alert('Something went wrong :(');
         }
-    }
-    calcTime() {
-        this.time = this.timeToPrepare;
-    }
-    calcServings() {
-        this.servings=this.servingsA;
     }
 }
