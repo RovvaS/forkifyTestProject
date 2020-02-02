@@ -1,6 +1,7 @@
 // Global app controller
 import Search from './models/Search';
 import * as searchView from './views/searchView';
+import * as recipeView from './views/recipeView';
 import { elements, renderLoader, clearLoader } from './views/base';
 import Recipe from './models/Recipe';
 
@@ -26,7 +27,6 @@ const controlSearch = async () => {
         searchView.clearInput();
         searchView.clearResults();
         renderLoader(elements.searchRes);
-
         try {
             //Search for recipies
             await state.search.getResults();
@@ -65,21 +65,25 @@ const controlRecipe = async () => {
     const id = window.location.hash.replace('#', '');
     if (id) {
 
+        recipeView.clearRecipe();
         //Prepare UI for changes
+        renderLoader(elements.recipe);
 
         //Create new recipe object
         state.recipe = new Recipe(id);
-
         try {
-            //Get the recipe data
+            //Get the recipe data and parse ingredients
             await state.recipe.getRecipe();
+            
+            state.recipe.parseIngredients();
 
             // //Calculate servings and time
             // state.recipe.calcTime();
             // state.recipe.calcServings();
 
             //Render the recipe
-            console.log(state.recipe);
+            clearLoader();
+            recipeView.renderRecipe(state.recipe);
         } catch (error) {
             console.log('Error proccessing recipe');
         }
