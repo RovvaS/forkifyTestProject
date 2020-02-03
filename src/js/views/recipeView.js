@@ -1,11 +1,12 @@
 import { elements } from './base';
+import {Fraction} from 'fractional'
 
 const createIngredient = ingredient => `
         <li class="recipe__item">
         <svg class="recipe__icon">
             <use href="img/icons.svg#icon-check"></use>
         </svg>
-        <div class="recipe__count">${ingredient.count}</div>
+        <div class="recipe__count">${formatCount(ingredient.count)}</div>
         <div class="recipe__ingredient">
             <span class="recipe__unit">${ingredient.unit}</span>
             ${ingredient.ingredient}
@@ -16,6 +17,23 @@ const createIngredient = ingredient => `
 export const clearRecipe = () => {
     elements.recipe.innerHTML = '';
 };
+
+const formatCount = count=>{
+    if (count) {
+        const [int,dec] = count.toString().split('.').map(el=>parseInt(el,10));
+        if (!dec) {
+            return count;
+        }
+        if (int===0) {
+            const fr = new Fraction(count);
+            return `${fr.numerator}/${fr.denominator}`
+        } else{
+            const fr = new Fraction(count-int);
+            return `${int} ${fr.numerator}/${fr.denominator}`
+        }
+    }
+    return '?';
+}
 
 
 export const renderRecipe = recipe => {
@@ -42,12 +60,12 @@ export const renderRecipe = recipe => {
                 <span class="recipe__info-text"> servings</span>
 
                 <div class="recipe__info-buttons">
-                    <button class="btn-tiny">
+                    <button class="btn-tiny btn-decrease">
                         <svg>
                             <use href="img/icons.svg#icon-circle-with-minus"></use>
                         </svg>
                     </button>
-                    <button class="btn-tiny">
+                    <button class="btn-tiny btn-increase">
                         <svg>
                             <use href="img/icons.svg#icon-circle-with-plus"></use>
                         </svg>
@@ -84,7 +102,7 @@ export const renderRecipe = recipe => {
                 This recipe was carefully designed and tested by
                 <span class="recipe__by">${recipe.author}</span>. Please check out directions at their website.
             </p>
-            <a class="btn-small recipe__btn" href=${recipe.url} target="_blank">
+            <a class="btn-small recipe__btn" href="${recipe.url}" target="_blank">
                 <span>Directions</span>
                 <svg class="search__icon">
                     <use href="img/icons.svg#icon-triangle-right"></use>

@@ -69,17 +69,16 @@ const controlRecipe = async () => {
         //Prepare UI for changes
         renderLoader(elements.recipe);
 
+        //Highlight selected search
+        if (state.search) searchView.highlightSelected(id);
+
         //Create new recipe object
         state.recipe = new Recipe(id);
         try {
             //Get the recipe data and parse ingredients
             await state.recipe.getRecipe();
-            
-            state.recipe.parseIngredients();
 
-            // //Calculate servings and time
-            // state.recipe.calcTime();
-            // state.recipe.calcServings();
+            state.recipe.parseIngredients();
 
             //Render the recipe
             clearLoader();
@@ -94,3 +93,22 @@ const controlRecipe = async () => {
 
 
 ['hashchange', 'load'].forEach(event => window.addEventListener(event, controlRecipe));
+
+//Handling Recipe button clciks
+
+elements.recipe.addEventListener('click', e => {
+    if (e.target.matches('.btn-decrease,.btn-decrease *')) {
+        //Decreasse button is clicked
+        state.recipe.updateServings('dec');
+    } else if (e.target.matches('.btn-increase,.btn-increase *')) {
+        //Increase button is clicked
+        state.recipe.updateServings('inc');
+    }
+    console.log(state.recipe);
+})
+
+
+
+// //Calculate servings and time
+// state.recipe.calcTime();
+// state.recipe.calcServings();

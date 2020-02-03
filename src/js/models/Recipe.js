@@ -14,10 +14,9 @@ export default class Recipe {
             this.author = res.data[0].source;
             this.img = res.data[0].image;
             this.ingredients = res.data[0].ingredients;
-            this.url - res.data[0].url;
+            this.url = res.data[0].url;
             this.time = res.data[0].totalTime || 15;
-            this.servings = Math.floor(res.data[0].totalWeight / 300) || 1;
-            console.log(res.data[0]);            
+            this.servings = Math.floor(res.data[0].totalWeight / 300) || 1;          
         } catch (error) {
             console.log(error);
             alert('Something went wrong :(');
@@ -56,7 +55,7 @@ export default class Recipe {
                 }
 
                 objIng = {
-                    count,
+                    count:parseInt(count),
                     unit: arrIng[unitIndex],
                     ingredient: arrIng.slice(unitIndex+1).join(' ')
                 }
@@ -65,14 +64,14 @@ export default class Recipe {
             } else if (parseInt(arrIng[0], 10)) {
                 //THere is No unit, but there is a number
                 objIng = {
-                    count: arrIng[0],
+                    count: parseInt(arrIng[0]),
                     unit: '',
                     ingredient: arrIng.slice(1).join(' ')
                 }
             } else if (unitIndex === -1) {
                 //There is NO unit and NO number in 1st position
                 objIng = {
-                    count: "1",
+                    count: 1,
                     unit: '',
                     ingredient
                 }
@@ -82,4 +81,16 @@ export default class Recipe {
         });
         this.ingredients = newIngredients;
     }
+
+    updateServings(type) {
+       
+        //Servings
+        const newServings = type ==='dec'? this.servings-1 : this.servings+1;
+        //Ingredients
+        let multiplicator = newServings/this.servings;
+        console.log(multiplicator);
+        this.ingredients.forEach(ing=>ing.count *= multiplicator);
+        this.servings = newServings;
+    }
+
 }
