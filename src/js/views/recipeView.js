@@ -21,6 +21,7 @@ export const clearRecipe = () => {
 const formatCount = count=>{
     if (count) {
         const [int,dec] = count.toString().split('.').map(el=>parseInt(el,10));
+        
         if (!dec) {
             return count;
         }
@@ -33,6 +34,19 @@ const formatCount = count=>{
         }
     }
     return '?';
+}
+
+
+export const updateServingsIngredients = recipe =>{
+    //Update servings in UI
+    document.querySelector('.recipe__info-data--people').textContent=recipe.servings;
+
+    //Update ingredients count
+    const countElemtns = Array.from(document.querySelectorAll('.recipe__count'));
+    countElemtns.forEach((el,i) => {
+        el.textContent=formatCount(recipe.ingredients[i].count);
+    })
+
 }
 
 
@@ -115,3 +129,4 @@ export const renderRecipe = recipe => {
     elements.recipe.insertAdjacentHTML('afterbegin', markup);
 
 }
+
