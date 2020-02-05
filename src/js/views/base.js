@@ -5,7 +5,7 @@ export const elements = {
     recipe:document.querySelector('.recipe'),
     searchRes: document.querySelector('.results'),
     searchResPages: document.querySelector('.results__pages'),
-    
+    shopping:document.querySelector('.shopping__list')
 };
 
 //General

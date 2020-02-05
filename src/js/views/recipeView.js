@@ -38,6 +38,7 @@ const formatCount = count=>{
 
 
 export const updateServingsIngredients = recipe =>{
+    debugger;
     //Update servings in UI
     document.querySelector('.recipe__info-data--people').textContent=recipe.servings;
 
@@ -101,7 +102,7 @@ export const renderRecipe = recipe => {
             ${recipe.ingredients.map(el => createIngredient(el)).join('')}
 
          </ul>
-         <button class="btn-small recipe__btn">
+         <button class="btn-small recipe__btn recipe__btn--add">
         <svg class="search__icon">
             <use href="img/icons.svg#icon-shopping-cart"></use>
         </svg>
