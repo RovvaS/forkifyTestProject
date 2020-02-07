@@ -24,6 +24,13 @@ body {
   background-repeat: no-repeat;
   min-height: calc(100vh - 2 * 4vw); }
 
+#DELETE{
+  margin-top: 10px;
+  display: initial;
+  color:black;
+}
+
+
 .container {
   max-width: 120rem;
   margin: 4vw auto;

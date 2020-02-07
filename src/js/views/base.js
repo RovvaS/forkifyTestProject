@@ -5,11 +5,14 @@ export const elements = {
     recipe:document.querySelector('.recipe'),
     searchRes: document.querySelector('.results'),
     searchResPages: document.querySelector('.results__pages'),
-    shopping:document.querySelector('.shopping__list')
+    shopping:document.querySelector('.shopping__list'),
+    likesMenu:document.querySelector('.likes__field'),
+    likesList:document.querySelector('.likes__list'),
+    deleteShoppingList:document.querySelector('.shopping'),
+    delShoppingListButt:document.querySelector('.shopping__delete__btn-big'),
 };
 
 //General
-
 export const elementStrings = {
     loader: 'loader'
 }

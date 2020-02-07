@@ -13,9 +13,21 @@ export const renderItem = item => {
         </svg>
     </button>
 </li>`;
+    elements.shopping.insertAdjacentHTML('beforeend', markup);
+}
 
-elements.shopping.insertAdjacentHTML('beforeend',markup);
 
+export const renderDelButton = () => {
+    if (!document.querySelector('.shopping__delete__btn-big')) {
+        const markup = `<button id="DELETE" class="shopping__delete__btn-big btn"> Delete All</button>`;
+        elements.shopping.insertAdjacentHTML('afterend', markup);
+    }
+}
+
+
+export const deleteList = () => {
+    elements.shopping.innerHTML = '';
+    document.querySelector('.shopping__delete__btn-big').parentElement.removeChild(document.querySelector('.shopping__delete__btn-big'));
 }
 
 export const deleteItem = id => {

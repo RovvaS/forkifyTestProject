@@ -17,11 +17,14 @@ export const highlightSelected = id =>{
     resultsArr.forEach(el=>{
         el.classList.remove('results__link--active');
     })
-    document.querySelector(`a[href="#${id}"]`).classList.add('results__link--active');
+    if (  document.querySelector(`.results__link[href="#${id}"]`)) {
+        document.querySelector(`.results__link[href="#${id}"]`).classList.add('results__link--active');
+    }
+   
 }
 
 //Function to shorten the title of a recipe to fit on one row but with whole words only
-const limitRecipeTitle = (title, limit = 17) => {
+export const limitRecipeTitle = (title, limit = 17) => {
     const newTitle = [];
     if (title.length > limit) {
         title.split(' ').reduce((acc, cur) => {

@@ -89,7 +89,7 @@ export default class Recipe {
         //Ingredients
         let multiplicator = newServings/this.servings;
         this.ingredients.forEach(ing=>ing.count *= multiplicator);
-        this.ingredients.forEach(ing=> ing.count = ing.count.toFixed(1));
+        this.ingredients.forEach(ing=> ing.count = Math.round(ing.count*10)/10);
         this.servings = newServings;
     }
 
