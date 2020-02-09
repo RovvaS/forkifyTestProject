@@ -25,11 +25,30 @@ body {
   min-height: calc(100vh - 2 * 4vw); }
 
 #DELETE{
-  margin-top: 10px;
+  margin: 10px 0px;
   display: initial;
   color:black;
 }
 
+#AddToShoppingList{
+ color:black;
+ margin: 10px 0px;
+} 
+
+#MissingIngredient{
+  color: red;
+  font-size: 15px;
+}
+
+#custIngred{
+  margin: 10px 0px;
+  display: inline-block;
+  text-align: center
+}
+
+input{
+  margin-top: 10px;
+}
 
 .container {
   max-width: 120rem;

@@ -16,7 +16,7 @@ export default class Recipe {
             this.ingredients = res.data[0].ingredients;
             this.url = res.data[0].url;
             this.time = res.data[0].totalTime || 15;
-            this.servings = Math.floor(res.data[0].totalWeight / 300) || 1;          
+            this.servings = Math.floor(res.data[0].totalWeight / 350) || 1;          
         } catch (error) {
             console.log(error);
             alert('Something went wrong :(');

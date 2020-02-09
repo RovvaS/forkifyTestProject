@@ -8,6 +8,7 @@ import * as recipeView from './views/recipeView';
 import * as listView from './views/listView';
 import * as likesView from './views/likesView';
 import { elements, renderLoader, clearLoader } from './views/base';
+import uniqid from 'uniqid';
 
 
 
@@ -17,6 +18,7 @@ import { elements, renderLoader, clearLoader } from './views/base';
  - Shiping list object
  - Liked recipes
 */
+
 const state = {};
 
 /* Search Controller*/
@@ -99,6 +101,35 @@ const controlRecipe = async () => {
 //Handling Recipe button clciks
 
 
+document.querySelector('#AddToShoppingList').addEventListener('click', () => {
+    if (!state.list) {
+        state.list = new List();
+    }
+
+    const custEl = document.querySelectorAll('.custIn');
+
+    if (custEl[2].value) {
+        const item = {
+            id: uniqid(),
+            count: custEl[0].value,
+            unit: custEl[1].value,
+            ingredient: custEl[2].value
+        }
+        state.list.addItem(item);
+        listView.renderItem(item);
+        listView.renderDelButton();   
+        listView.hideIngredIsRequired();    
+        custEl.forEach(el=>el.value="");
+    }
+    else{
+        document.querySelector('#MissingIngredient').innerHTML='Ingredient is required';
+    }
+})
+
+document.querySelector('#custIngredIngred').addEventListener('click', listView.hideIngredIsRequired);
+
+
+
 /*List Controller*/
 const controlList = () => {
     //Create a new list if there is none yet
@@ -127,9 +158,12 @@ elements.shopping.addEventListener('click', e => {
 
         //Delete from UI
         listView.deleteItem(id);
+       
+        if (state.list.items.length===0){ listView.deleteList()}
     }
     //handle the count update
     else if (e.target.matches('.shoping__count-value')) {
+        debugger;
         const val = parseFloat(e.target.value);
         if (val > 0) {
             state.list.updateCount(id, val);
