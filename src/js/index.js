@@ -109,20 +109,14 @@ document.querySelector('#AddToShoppingList').addEventListener('click', () => {
     const custEl = document.querySelectorAll('.custIn');
 
     if (custEl[2].value) {
-        const item = {
-            id: uniqid(),
-            count: custEl[0].value,
-            unit: custEl[1].value,
-            ingredient: custEl[2].value
-        }
-        state.list.addItem(item);
+        let item = state.list.addItem(custEl[0].value,custEl[1].value,custEl[2].value);
         listView.renderItem(item);
-        listView.renderDelButton();   
-        listView.hideIngredIsRequired();    
-        custEl.forEach(el=>el.value="");
+        listView.renderDelButton();
+        listView.hideIngredIsRequired();
+        custEl.forEach(el => el.value = "");
     }
-    else{
-        document.querySelector('#MissingIngredient').innerHTML='Ingredient is required';
+    else {
+        document.querySelector('#MissingIngredient').innerHTML = 'Ingredient is required';
     }
 })
 
@@ -158,8 +152,9 @@ elements.shopping.addEventListener('click', e => {
 
         //Delete from UI
         listView.deleteItem(id);
-       
-        if (state.list.items.length===0){ listView.deleteList()}
+
+        console.log(state.list.items.length);
+        if (state.list.items.length === 0) { listView.deleteList() }
     }
     //handle the count update
     else if (e.target.matches('.shoping__count-value')) {
@@ -174,6 +169,9 @@ elements.shopping.addEventListener('click', e => {
 
 elements.deleteShoppingList.addEventListener('click', e => {
     if (e.target.matches('.shopping__delete__btn-big , .shopping__delete__btn-big *')) {
+
+        const ids = state.list.items.map(el=>el.id);
+        ids.forEach(id=> state.list.deleteItem(id));
         listView.deleteList();
     }
 })
@@ -182,16 +180,25 @@ elements.deleteShoppingList.addEventListener('click', e => {
 
 
 window.addEventListener('load', () => {
+    
     state.likes = new Likes();
+    state.list = new List();
 
-    //Restore likes
+    //Restore likes and shoppingList
     state.likes.readStorage();
+    state.list.readStorage();
 
     //Toggle like menu button
     likesView.toggleLikeMenu(state.likes.getNumberLikes());
 
-    //Render the existing likes
+    //Render the existing likes and items in shopping list
     state.likes.likes.forEach(like => likesView.renderLike(like));
+    state.list.items.forEach(item => listView.renderItem(item));
+
+    //Render the "Delete all" button if there are any items from the shopping list in the local storage
+    if (state.list.items.length) {
+        listView.renderDelButton();
+    }
 });
 
 
@@ -227,6 +234,10 @@ const controlLike = () => {
 
 elements.recipe.addEventListener('click', e => {
     if (e.target.matches('.btn-decrease,.btn-decrease *')) {
+
+        //Test
+        //localStorage.setItem('myCat', 'Tom');
+
         //Decreasse button is clicked
         if (state.recipe.servings > 1) {
             state.recipe.updateServings('dec');

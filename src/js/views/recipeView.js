@@ -39,7 +39,6 @@ const formatCount = count => {
 
 
 export const updateServingsIngredients = recipe => {
-    debugger;
     //Update servings in UI
     document.querySelector('.recipe__info-data--people').textContent = recipe.servings;
 
